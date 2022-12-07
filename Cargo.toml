@@ -16,14 +16,14 @@ base64 = "*"
 bigdecimal = { version = "*", features = [ "serde" ] }
 chrono = { version = "*", features = [ "serde" ] }
 futures = "*"
-hmac = "*"
+hmac = "0.10"
 http = "*"
 hyper = { version = "*", features = [ "full" ] }
 hyper-tls = "*"
 serde = "*"
 serde_derive = "*"
 serde_json = "*"
-sha2 = "*"
+sha2 = "0.9"
 thiserror = "*"
 tokio = { version = "*", features = [ "full" ] }
 tokio-stream = "*"

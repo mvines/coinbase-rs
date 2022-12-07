@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::result;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use hmac::{Hmac, Mac};
+use hmac::{Hmac, Mac, NewMac};
 use http::{request, Method, Request, Uri, Version};
 use hyper::Body;
 use sha2::Sha256;
@@ -11,8 +11,6 @@ use sha2::Sha256;
 pub struct Error {}
 
 pub type Result<T> = result::Result<T, Error>;
-
-type HmacSha256 = Hmac<Sha256>;
 
 const USER_AGENT: &str = concat!("coinbase-rs/", env!("CARGO_PKG_VERSION"));
 
@@ -131,8 +129,7 @@ impl Builder {
     }
 
     fn sign(secret: &str, timestamp: u64, method: &Method, path: &str, body: &Vec<u8>) -> String {
-        let mut mac: Hmac<Sha256> =
-            HmacSha256::new_from_slice(&secret.as_bytes()).expect("Hmac::new(secret)");
+        let mut mac = Hmac::<Sha256>::new_varkey(secret.as_bytes()).expect("Hmac::new(secret)");
         let input = timestamp.to_string() + method.as_str() + path;
         mac.update(input.as_bytes());
         mac.update(body);
