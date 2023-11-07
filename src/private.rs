@@ -165,14 +165,8 @@ pub struct TransactionDetails {
 pub struct Currency {
     pub code: String,
     pub name: String,
-    pub color: String,
-    pub sort_index: usize,
     pub exponent: usize,
     pub r#type: String,
-    pub address_regex: Option<String>,
-    pub asset_id: Option<Uuid>,
-    pub destination_tag_name: Option<String>,
-    pub destination_tag_regex: Option<String>,
 }
 
 #[derive(Deserialize, Debug, Eq, PartialEq)]
